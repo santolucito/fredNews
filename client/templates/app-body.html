@@ -24,7 +24,7 @@
       {{/if}}
 
       <div class="list-todos">
-        <a class="js-new-list link-list-new"><span class="icon-plus"></span>New List</a>
+        <a class="js-new-list link-list-new"><span class="icon-plus"></span>New Source</a>
 
         {{#each lists}}
           <a href="{{pathFor 'listsShow'}}" class="list-todo {{activeListClass}}" title="{{name}}">
@@ -56,9 +56,7 @@
     <div class="content-overlay"></div>
 
     <div id="content-container">
-      {{#each thisArray}}
-        {{> yield}}
-      {{/each}}
+      {{> yield}}
     </div>
   </div>
 </template>
