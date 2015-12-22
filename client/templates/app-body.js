@@ -32,25 +32,6 @@ Meteor.startup(function () {
   }, CONNECTION_ISSUE_TIMEOUT);
 });
 
-Template.appBody.onRendered(function() {
-  this.find('#content-container')._uihooks = {
-    insertElement: function(node, next) {
-      $(node)
-        .hide()
-        .insertBefore(next)
-        .fadeIn(function () {
-          if (listFadeInHold) {
-            listFadeInHold.release();
-          }
-        });
-    },
-    removeElement: function(node) {
-      $(node).fadeOut(function() {
-        $(this).remove();
-      });
-    }
-  };
-});
 
 Template.appBody.helpers({
   // We use #each on an array of one item so that the "list" template is
@@ -73,14 +54,9 @@ Template.appBody.helpers({
   userMenuOpen: function() {
     return Session.get(USER_MENU_KEY);
   },
-  lists: function() {
-    return Lists.find();
-  },
-  activeListClass: function() {
-    var current = Router.current();
-    if (current.route.name === 'listsShow' && current.params._id === this._id) {
-      return 'active';
-    }
+  sources: function() {
+    console.log(Sources.find().fetch())
+    return Sources.find();
   },
   connected: function() {
     if (Session.get(SHOW_CONNECTION_ISSUE_KEY)) {

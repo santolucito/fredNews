@@ -12,7 +12,6 @@ Meteor.publish('privateLists', function() {
 
 Meteor.publish('todos', function(listId) {
   check(listId, String);
-
   return Todos.find({listId: listId});
 });
 
@@ -20,3 +19,6 @@ Meteor.publish('rss', function() {
   return Rss.find();
 });
 
+Meteor.publish('sources', function() {
+  return Sources.find();
+});
