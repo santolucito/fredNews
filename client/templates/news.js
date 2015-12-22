@@ -1,7 +1,10 @@
 
 Template.news.onRendered(function() {
   updateRSS('http://amherststudent.amherst.edu/?q=rss.xml');
+  updateRSS('http://news.yale.edu/news-rss');
+
 });
+
 
 Template.news.helpers({
 
@@ -37,11 +40,11 @@ var updateRSS = function (sourceRSS){
           Rss.insert(feeds.entries[i]);
         }
       }
-    }, 10);
+    }, 5);
 }
 
 Template.article.helpers({
   title : function() { console.log(this); return this.title },
   link : function() { return this.link }
-  
+
 });
