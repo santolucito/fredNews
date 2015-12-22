@@ -121,10 +121,10 @@ Template.appBody.events({
     }
   },
 
-  'click .js-new-list': function() {
+  'click .js-new-source': function() {
     var list = {name: Lists.defaultName(), incompleteCount: 0};
     list._id = Lists.insert(list);
 
-    Router.go('listsShow', list);
+    Router.go('newSource', list);
   }
 });
