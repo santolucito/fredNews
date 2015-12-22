@@ -1,0 +1,2 @@
+# fredNews
+College news aggregator
