@@ -1,20 +1,44 @@
-var EDITING_KEY = 'editingList';
-Session.setDefault(EDITING_KEY, false);
+
+Template.news.onRendered(function() {
+  updateRSS('http://amherststudent.amherst.edu/?q=rss.xml');
+});
 
 Template.news.helpers({
 
   articles : function() {
-    //pull the rss feeds for the user
-    //forall rss, pull articles
-    //order them and return list of title and links
-    var all = [
-      {title:"News headline 1",link:"a.link.com"},
-      {title:"News headline 2",link:"a.link.com"}
-    ];
-    console.log(all);
+    //pull the list of rss feeds for the user
+    //forall rss, update database if need
+    //return the users feeds from database
+
+    //we update the rssData everytime the user rquests a feed
+
+    var all = Rss.find().fetch();
+    console.log("now you have ...")
+    console.log(all)
+    console.log(Rss.find().count())
     return all;
   }
 });
+
+var updateRSS = function (sourceRSS){
+  var results=[];
+  var rssAll = $.jGFeed(sourceRSS,
+    function(feeds){
+      if(!feeds){
+       console.error("error: bad rss feed");
+       return false;
+      }
+      for(var i=0; i<feeds.entries.length; i++){
+        currentTitle = feeds.entries[i].title;
+        if(!Rss.findOne({title:currentTitle})){
+          //console.log(!Rss.findOne({title:currentTitle}))
+          //console.log(Rss.findOne({title:currentTitle}))
+          console.log("found a new article, adding to database: "+currentTitle);
+          Rss.insert(feeds.entries[i]);
+        }
+      }
+    }, 10);
+}
 
 Template.article.helpers({
   title : function() { console.log(this); return this.title },
