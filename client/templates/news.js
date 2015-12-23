@@ -1,8 +1,8 @@
 
 Template.news.onRendered(function() {
-  Meteor.call("updateRSS",'http://amherststudent.amherst.edu/?q=rss.xml');
-  Meteor.call("updateRSS",'http://news.yale.edu/news-rss');
-  console.log("called twice");
+  Sources.find().map( function(s){
+    Meteor.call("updateRSS",s);
+  });
 });
 
 
@@ -24,8 +24,12 @@ Template.news.helpers({
 });
 
 Template.article.helpers({
-  title : function() { console.log(this); return this.title },
-  link : function() { return this.link }
+  getContent : function(){
+    var c = this.contentSnippet
+    return c.split(/\s+/).filter(function(word) {
+      return word && !/[&]/.test(word);
+    }).join(" ");
+  }
 });
 
 
@@ -33,7 +37,7 @@ Meteor.methods({
   updateRSS : function (sourceRSS){
     console.log('answered');
     var results=[];
-    var rssAll = $.jGFeed(sourceRSS,
+    var rssAll = $.jGFeed(sourceRSS.link,
       function(feeds){
         if(!feeds){
          console.error("error: bad rss feed");
@@ -45,7 +49,10 @@ Meteor.methods({
             //console.log(!Rss.findOne({title:currentTitle}))
             //console.log(Rss.findOne({title:currentTitle}))
             console.log("found a new article, adding to database: "+currentTitle);
-            Articles.insert(feeds.entries[i]);
+            var articleToAdd = feeds.entries[i]
+            articleToAdd.source = sourceRSS.name
+            console.log(articleToAdd);
+            Articles.insert(articleToAdd);
           }
         }
       }, 5);

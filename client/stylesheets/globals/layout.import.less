@@ -11,7 +11,6 @@ body {
 
 #container {
   .position(absolute, 0, 0, 0, 0);
-
   @media screen and (min-width: 60em) {
     left: @column;
     right: @column;
@@ -31,6 +30,7 @@ body {
 }
 
 #content-container {
+  overflow-y: scroll;
   border-left-width: 7px;
   border-left-color: gray;
   border-left-style: double;
