@@ -1,5 +1,7 @@
+var SOURCE_SELECT = 'sourceSelect';
 
 Template.news.onRendered(function() {
+  //we update the rssData everytime the user rquests a feed
   Sources.find().map( function(s){
     Meteor.call("updateRSS",s);
   });
@@ -12,13 +14,13 @@ Template.news.helpers({
     //pull the list of rss feeds for the user
     //forall rss, update database if need
     //return the users feeds from database
+    var sourceSelect = Session.get(SOURCE_SELECT)
 
-    //we update the rssData everytime the user rquests a feed
+    var selector = ""
+    if (sourceSelect == "allSources") { selector = {} }
+    else { selector = {source:sourceSelect} }
 
-    var all = Articles.find().fetch();
-    console.log("now you have ...")
-    console.log(all)
-    console.log(Articles.find().count())
+    var all = Articles.find(selector).fetch();
     return all;
   }
 });

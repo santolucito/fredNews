@@ -25,10 +25,10 @@
 
       <div class="list-todos">
         <a class="js-new-source link-list-new"><span class="icon-plus"></span>New Source</a>
-        <a class="list-todo" href="/">All News</a>
+        <a class="list-todo" id="allSources" href="/">All News</a>
 
         {{#each sources}}
-          <a class="list-todo">{{ name }}</a>
+          <a class="list-todo" id="{{ name }}">{{ name }}</a>
         {{/each}}
 
       </div>

@@ -7,6 +7,9 @@ Session.setDefault(USER_MENU_KEY, false);
 var SHOW_CONNECTION_ISSUE_KEY = 'showConnectionIssue';
 Session.setDefault(SHOW_CONNECTION_ISSUE_KEY, false);
 
+var SOURCE_SELECT = 'sourceSelect';
+Session.setDefault(SOURCE_SELECT, "");
+
 var CONNECTION_ISSUE_TIMEOUT = 5000;
 
 Meteor.startup(function () {
@@ -82,8 +85,11 @@ Template.appBody.events({
     event.stopImmediatePropagation();
   },
 
-  'click #menu a': function() {
+  'click #menu a': function(evt) {
+    var s = $(evt.target).attr("id");
+    Session.set(SOURCE_SELECT,s);
     Session.set(MENU_KEY, false);
+
   },
 
   'click .js-logout': function() {
