@@ -29,6 +29,10 @@ Template.article.helpers({
     return c.split(/\s+/).filter(function(word) {
       return word && !/[&]/.test(word);
     }).join(" ");
+  },
+  getDate : function() {
+    var d = this.publishedDate;
+    return d.substring(5,16);
   }
 });
 
