@@ -1,8 +1,8 @@
 
 Template.news.onRendered(function() {
-  Method.call(updateRSS,'http://amherststudent.amherst.edu/?q=rss.xml');
-  Method.call(updateRSS,'http://news.yale.edu/news-rss');
-
+  Meteor.call("updateRSS",'http://amherststudent.amherst.edu/?q=rss.xml');
+  Meteor.call("updateRSS",'http://news.yale.edu/news-rss');
+  console.log("called twice");
 });
 
 
@@ -28,9 +28,10 @@ Template.article.helpers({
   link : function() { return this.link }
 });
 
-if(isServer){
+
 Meteor.methods({
   updateRSS : function (sourceRSS){
+    console.log('answered');
     var results=[];
     var rssAll = $.jGFeed(sourceRSS,
       function(feeds){
@@ -51,4 +52,3 @@ Meteor.methods({
   }
 
 });
-}
