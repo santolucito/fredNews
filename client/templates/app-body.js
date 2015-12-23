@@ -55,7 +55,6 @@ Template.appBody.helpers({
     return Session.get(USER_MENU_KEY);
   },
   sources: function() {
-    console.log(Sources.find().fetch())
     return Sources.find();
   },
   connected: function() {
