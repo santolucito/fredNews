@@ -1,3 +1,5 @@
+Session.setDefault("name", "");
+
 Template.newSource.events({
    "submit .new-source": function (event) {
      // Prevent default browser form submit
@@ -14,5 +16,17 @@ Template.newSource.events({
      // Clear form
      event.target.text.value = "";
      Router.go('/');
+   },
+   "keyup input" : function (){
+     var rssLink = $('#rssLink').val();
+     console.log( $.jGFeed(rssLink) );
+     //Session.set("name")
    }
  });
+
+Template.newSource.helpers({
+  name : function(){
+    return Session.get("name");
+  }
+
+})

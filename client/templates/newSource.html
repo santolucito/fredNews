@@ -1,10 +1,15 @@
 <template name="newSource">
-  
+
   <h2>Add a new source by providing an RSS feed</h2>
     <form class="new-source">
       <div class="form-group">
-       <input type="text" name="text" placeholder="paper.edu/rss" />
+       <input id="rssLink" type="text" name="text" placeholder="rss link" />
       </div>
+      <ul>
+        <li>Publication Name : {{ name }}</li>
+        <li></li>
+      </ul>
+
        <button type="submit">Add Source</button>
      </form>
 
