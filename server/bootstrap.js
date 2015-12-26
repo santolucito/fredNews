@@ -1,5 +1,7 @@
 // if the database is empty on server start, create some sample data.
 Meteor.startup(function () {
+  Sources.remove({});
+  Articles.remove({});
   if (Sources.find().count() === 0) {
     var data = [
       {name: "Amherst Student", link:'http://amherststudent.amherst.edu/?q=rss.xml'},
